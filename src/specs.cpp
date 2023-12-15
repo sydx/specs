@@ -1,3 +1,4 @@
+#include <iostream>
 #include <RcppArmadillo.h>
 
 using namespace Rcpp;
@@ -93,6 +94,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                        arma::vec lambda_g, arma::vec lambda_i,
                        const double thresh,const double max_iter_delta,
                        const double max_iter_pi,const double max_iter_gamma) {
+    std::cout << "In specs_rcpp..." << std::endl;
 
     //Create CECM specification
     arma::mat z = arma::join_horiz(y,x); //combined data
