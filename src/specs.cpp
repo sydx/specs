@@ -128,33 +128,73 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     }
     int n = z.n_cols; int m = v.n_cols; int t = y_d.n_elem;
 
+    std::cout << "CECM specification:" << std::endl;
+    std::cout << "z: " << z << std::endl;
+    std::cout << "z_d: " << z_d << std::endl;
+    std::cout << "z_dl: " << z_dl << std::endl;
+    std::cout << "y_d: " << y_d << std::endl;
+    std::cout << "z_l: " << z_l << std::endl;
+    std::cout << "w: " << w << std::endl;
+    std::cout << "v: " << v << std::endl;
+    std::cout << "n: " << n << std::endl;
+    std::cout << "m: " << m << std::endl;
+    std::cout << "t: " << t << std::endl;
+    std::cout << "(End of CECM specification.)" << std::endl;
+
     //regress out deterministics
+    std::cout << "Regressing out deterministics" << std::endl;
     arma::vec y_d_old; arma::mat v_old, D, DDD;
     if (deterministics == "constant") {
+	std::cout << "We are in this case: constant" << std::endl;
         arma::mat M = arma::eye(t,t) - arma::mat(t,t,arma::fill::ones)/t;
         y_d_old = y_d; v_old = v;
         y_d = M*y_d; v = M*v;
         D = join_horiz(arma::mat(t,1,arma::fill::ones),arma::mat(t,1,arma::fill::zeros));
+	std::cout << "M: " << M << std::endl;
+	std::cout << "y_d_old: " << y_d_old << std::endl;
+	std::cout << "y_d: " << y_d << std::endl;
+	std::cout << "D: " << D << std::endl;
     } else if (deterministics == "trend") {
+	std::cout << "We are in this case: trend" << std::endl;
         D = arma::linspace(1,t,t);
         arma::mat M = arma::eye(t,t) - D*D.t()/arma::as_scalar(sum(pow(D,2)));
         y_d_old = y_d; v_old = v;
         y_d = M*y_d; v = M*v;
         D = join_horiz(arma::mat(t,1,arma::fill::zeros),D);
+	std::cout << "D: " << D << std::endl;
+	std::cout << "M: " << M << std::endl;
+	std::cout << "y_d_old: " << y_d_old << std::endl;
+	std::cout << "y_d: " << y_d << std::endl;
     } else if (deterministics == "both"){
+	std::cout << "We are in this case: both" << std::endl;
         D = join_horiz(arma::ones(t),arma::linspace(1,t,t));
         DDD = arma::inv_sympd(D.t() * D)*D.t();
         arma::mat M = arma::eye(t,t) - D*DDD;
         y_d_old = y_d; v_old = v;
         y_d = M*y_d; v = M*v;
+	std::cout << "D: " << D << std::endl;
+	std::cout << "DDD: " << DDD << std::endl;
+	std::cout << "M: " << M << std::endl;
+	std::cout << "y_d_old: " << y_d_old << std::endl;
+	std::cout << "v_old: " << v_old << std::endl;
+	std::cout << "y_d: " << y_d << std::endl;
+	std::cout << "v: " << v << std::endl;
     } else {
+	std::cout << "We are in this case: else" << std::endl;
         D = arma::mat(t,2,arma::fill::zeros);
+	std::cout << "D: " << D << std::endl;
     }
+    std::cout << "(Done regressing out deterministics.)" << std::endl;
 
     //Obtain crossproducts
+    std::cout << "Obtaining crossproducts" << std::endl;
     arma::mat VV = v.t() * v; //crossproduct of V
     arma::vec vv = VV.diag(); //Diagonal elements of V'V
     arma::vec vy = v.t()*y_d/t; //Used for lambda seq and soft-thresholding
+    std::cout << "VV: " << VV << std::endl;
+    std::cout << "vv: " << vv << std::endl;
+    std::cout << "vy: " << vy << std::endl;
+    std::cout << "(Done obtaining crossproducts.)" << std::endl;
 
     //Obtain weights (if necessary)
     arma::vec gamma0;
