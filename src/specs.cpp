@@ -260,11 +260,11 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
 	std::cout << "In case 1" << std::endl;
         double lambda_imax = arma::as_scalar(max(abs(vy%pow(weights,-1)))); //maximum individual penalty
         double lambda_imin = 1e-4*lambda_imax; //minimum individual penalty
+	std::cout << "lambda_imax: " << lambda_imax << std::endl;
+	std::cout << "lambda_imin: " << lambda_imin << std::endl;
         lambda_i = exp(arma::linspace(log(lambda_imax),log(lambda_imin),100)); //individual penalties
     }
     int n_i = lambda_i.n_elem; int n_g = lambda_g.n_elem;
-    std::cout << "lambda_imax: " << lambda_imax << std::endl;
-    std::cout << "lambda_imin: " << lambda_imin << std::endl;
     std::cout << "lambda_i: " << lambda_i << std::endl;
     std::cout << "n_i: " << n_i << std::endl;
     std::cout << "n_g: " << n_g << std::endl;
