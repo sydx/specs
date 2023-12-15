@@ -197,40 +197,57 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "(Done obtaining crossproducts.)" << std::endl;
 
     //Obtain weights (if necessary)
+    std::cout << "Obtain weights (if necessary)" << std::endl;
     arma::vec gamma0;
     if(weights(0)==-1){
+	std::cout << "In case 1" << std::endl;
         gamma0 = arma::inv_sympd(VV) * v.t() * y_d; //OLS estimator
+	std::cout << "gamma0: " << gamma0 << std::endl;
         if(!ADL){
+	    std::cout << "In case 1.1" << std::endl; 
             weights = join_cols(pow(abs(gamma0.rows(0,n-1)),-k_delta),pow(abs(gamma0.rows(n,m-1)),-k_pi));
         }else{
+	    std::cout << "In case 1.2" << std::endl;
             weights = pow(abs(gamma0),-k_pi);
         }
     }else if (weights(0) == -2) {
+	std::cout << "In case 2" << std::endl;
         gamma0 = ridge(y_d,v,VV); //ridge estimator (change function later with svd check)
+        std::cout << "gamma0: " << gamma0 << std::endl;
         if(!ADL){
+	    std::cout << "In case 2.1" << std::endl;
             weights = join_cols(pow(abs(gamma0.rows(0,n-1)),-k_delta),pow(abs(gamma0.rows(n,m-1)),-k_pi));
         }else{
+	    std::cout << "In case 2.2" << std::endl;
             weights = pow(abs(gamma0),-k_pi);
         }
     }
+    std::cout << "weights: " << std::endl;
+    std::cout << "(Done obtaining weights.)" << std::endl;
 
     //Set group penalty
+    std::cout << "Setting group penalty" << std::endl;
     if (lambda_g(0) == -1){
+	std::cout << "In case 1" << std::endl;
         double lambda_gmax = sqrt(as_scalar(sum(pow(vy.rows(0,n-1),2)))); //maximum group penalty
         double lambda_gmin = 1e-4*lambda_gmax; //minimum group penalty
         lambda_g = arma::zeros(10); //initialize group penalties
         lambda_g.rows(0,8) = exp(arma::linspace(log(lambda_gmax),log(lambda_gmin),9)); //fill group penalties
     }
+    std::cout << "(Done setting group penalty.)" << std::endl;
 
     //Set individual penalty
+    std::cout << "Setting individual penalty" << std::endl;
     if(lambda_i(0) == -1) {
         double lambda_imax = arma::as_scalar(max(abs(vy%pow(weights,-1)))); //maximum individual penalty
         double lambda_imin = 1e-4*lambda_imax; //minimum individual penalty
         lambda_i = exp(arma::linspace(log(lambda_imax),log(lambda_imin),100)); //individual penalties
     }
     int n_i = lambda_i.n_elem; int n_g = lambda_g.n_elem;
+    std::cout << "(Done setting individual penalty)" << std::endl;
 
     //Perform SGL algorithm
+    std::cout << "Performing SGL algorithm" << std::endl;
     arma::vec gamma = arma::zeros(m);//initial
     arma::vec gamma_old;//coefficients vectors
     arma::vec theta, theta_dif, delta_u, xr_st; //initialize vectors for delta updates
@@ -240,8 +257,10 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     arma::mat gammas(m,n_i*n_g,arma::fill::zeros); //coefficient matrix
     arma::vec weights_vv = weights % pow(vv,-1);//weights divided by vv
     arma::mat v_vv = v*diagmat(pow(vv,-1));//columns of v divided by vv (standardized)
+    std::cout << "(Done performing SGL algorithm)" << std::endl;
 
     //Double loop over penalties
+    std::cout << "Double loop over penalties" << std::endl;
     for(int g = 0;g<n_g;g++) {
         double lambda_gtmp = lambda_g(g);
         if(lambda_gtmp > 0) {
@@ -386,8 +405,10 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         }
         gamma = arma::zeros(m); //reset gamma for new group penalty
     } //closes loop over group penalties
+    std::cout << "(Done loop over penalties)" << std::endl;
 
     //Calculate deterministic coefficients
+    std::cout << "Calculate deterministic coefficients" << std::endl;
     arma::mat det(2,n_g*n_i,arma::fill::zeros); int nn = n_g*n_i;
     if (deterministics == "constant") {
         for(int i=0;i<nn;i++) {
@@ -405,8 +426,10 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
             det.col(i) = DDD*(y_d_old - v_old*gammas.col(i));
         }
     }
+    std::cout << "(Done calculate deterministic coefficients)" << std::endl;
 
     //Collect output in list
+    std::cout << "Collect output in list" << std::endl;
     Rcpp::List ret ;
     ret["gammas"] = gammas;
     ret["thetas"] = det;
@@ -421,6 +444,8 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         ret["v"] = v; ret["Mv"] = v_old;
     }
     ret["D"] = D;
+    std::cout << "(Collected output in list)" << std::endl;
+
     return ret;
 }
 
