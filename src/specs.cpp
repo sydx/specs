@@ -107,6 +107,10 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                        const double max_iter_pi,const double max_iter_gamma) {
     std::cout << "In specs_rcpp..." << std::endl;
 
+    std::cout << "Testing embed_mat..." << std::endl;
+    auto result = embed_mat(x, p);
+    std::cout << "result: " << result << std::endl;
+    
     std::cout << "Parameters:" << std::endl;
     std::cout << "y: " << y << std::endl;
     std::cout << "x: " << x << std::endl;
