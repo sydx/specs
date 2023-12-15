@@ -29,7 +29,7 @@ arma::mat embed_mat (arma::mat x,const int p=1) {
     for(int j=0;j<p;j++) {
         for(int i=0;i<m;i++) {
 	    std::cout << "i = " << i << ", j = " << j << std::endl;
-	    std::cout << "arma::span(p-1-j,n-1-j)" << arma::span(p-1-j,n-1-j) << std:endl;
+	    //std::cout << "arma::span(p-1-j,n-1-j)" << arma::span(p-1-j,n-1-j) << std:endl;
 	    std::cout << "x(arma::span(p-1-j,n-1-j),i)" << x(arma::span(p-1-j,n-1-j),i) << std::endl;
             y.col(i+j*m) = x(arma::span(p-1-j,n-1-j),i);
         }
