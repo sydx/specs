@@ -17,14 +17,25 @@ arma::mat diff_mat (arma::mat x) {
 
 // [[Rcpp::export]]
 arma::mat embed_mat (arma::mat x,const int p=1) {
+    std::cout << "START embed_mat" << std::endl;
+    std::cout << "x: " << x << std::endl;
+    std::cout << "p: " << p << std::endl;
     int n = x.n_rows;
     int m = x.n_cols;
+    std::cout << "n: " << n << std::endl;
+    std::cout << "m: " << m << std::endl;
     arma::mat y(n-p+1,p*m,arma::fill::zeros);
+    std::cout << "y: " << y << std::endl;
     for(int j=0;j<p;j++) {
         for(int i=0;i<m;i++) {
+	    std::cout << "i = " << i << ", j = " << j << std::endl;
+	    std::cout << "arma::span(p-1-j,n-1-j)" << arma::span(p-1-j,n-1-j) << std:endl;
+	    std::cout << "x(arma::span(p-1-j,n-1-j),i)" << x(arma::span(p-1-j,n-1-j),i) << std::endl;
             y.col(i+j*m) = x(arma::span(p-1-j,n-1-j),i);
         }
     }
+    std::cout << "y: " << std::endl;
+    std::cout << "END embed_mat" << std::endl;
     return y;
 } //matrix embed
 
