@@ -96,6 +96,23 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                        const double max_iter_pi,const double max_iter_gamma) {
     std::cout << "In specs_rcpp..." << std::endl;
 
+    std::cout << "Parameters:" << std::endl;
+    std::cout << "y: " << y << std::endl;
+    std::cout << "x: " << x << std::endl;
+    std::cout << "p: " << p << std::endl;
+    std::cout << "deterministics: " << deterministics << std::endl;
+    std::cout << "ADL: " << ADL << std::endl;
+    std::cout << "weights: " << weights << std::endl;
+    std::cout << "k_delta: " << k_delta << std::endl;
+    std::cout << "k_pi: " << k_pi << std::endl;
+    std::cout << "lambda_g: " << lambda_g << std::endl;
+    std::cout << "lambda_i: " << lambda_i << std::endl;
+    std::cout << "thresh: " << thresh << std::endl;
+    std::cout << "max_iter_delta: " << max_iter_delta << std::endl;
+    std::cout << "max_iter_pi: " << max_iter_pi << std::endl;
+    std::cout << "max_iter_gamma: " << max_iter_gamma << std::endl;
+    std::cout << "(end of parameters)" << std::endl;
+
     //Create CECM specification
     arma::mat z = arma::join_horiz(y,x); //combined data
     arma::mat z_d = diff_mat(z); //differences
