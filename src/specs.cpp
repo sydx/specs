@@ -237,7 +237,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
             weights = pow(abs(gamma0),-k_pi);
         }
     }
-    std::cout << "weights: " << std::endl;
+    std::cout << "weights: " << weights << std::endl;
     std::cout << "(Done obtaining weights.)" << std::endl;
 
     //Set group penalty
