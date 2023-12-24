@@ -129,6 +129,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "(end of parameters)" << std::endl;
 
     //Create CECM specification
+    std::cout << "CECM specification:" << std::endl;
     arma::mat z = arma::join_horiz(y,x); //combined data
     arma::mat z_d = diff_mat(z); //differences
     arma::mat z_dl = embed_mat(z_d,p+1); //lagged differences
@@ -136,20 +137,18 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     arma::mat z_l = z.rows(p,z.n_rows-2); //lagged levels
     arma::mat w = z_dl.cols(1,z_dl.n_cols-1); //differences in CECM
     arma::mat v;
-    if(ADL) {
-        v = w; //consider diffs only
-    }else {
-        v = arma::join_horiz(z_l,w); //combined lagged lvls and diffs
-    }
-    int n = z.n_cols; int m = v.n_cols; int t = y_d.n_elem;
-
-    std::cout << "CECM specification:" << std::endl;
     std::cout << "z: " << z << std::endl;
     std::cout << "z_d: " << z_d << std::endl;
     std::cout << "z_dl: " << z_dl << std::endl;
     std::cout << "y_d: " << y_d << std::endl;
     std::cout << "z_l: " << z_l << std::endl;
     std::cout << "w: " << w << std::endl;
+    if(ADL) {
+        v = w; //consider diffs only
+    }else {
+        v = arma::join_horiz(z_l,w); //combined lagged lvls and diffs
+    }
+    int n = z.n_cols; int m = v.n_cols; int t = y_d.n_elem;
     std::cout << "v: " << v << std::endl;
     std::cout << "n: " << n << std::endl;
     std::cout << "m: " << m << std::endl;
