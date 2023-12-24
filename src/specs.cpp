@@ -17,25 +17,25 @@ arma::mat diff_mat (arma::mat x) {
 
 // [[Rcpp::export]]
 arma::mat embed_mat (arma::mat x,const int p=1) {
-    std::cout << "START embed_mat" << std::endl;
-    std::cout << "x: " << x << std::endl;
-    std::cout << "p: " << p << std::endl;
+    //std::cout << "START embed_mat" << std::endl;
+    //std::cout << "x: " << x << std::endl;
+    //std::cout << "p: " << p << std::endl;
     int n = x.n_rows;
     int m = x.n_cols;
-    std::cout << "n: " << n << std::endl;
-    std::cout << "m: " << m << std::endl;
+    //std::cout << "n: " << n << std::endl;
+    //std::cout << "m: " << m << std::endl;
     arma::mat y(n-p+1,p*m,arma::fill::zeros);
-    std::cout << "y: " << y << std::endl;
+    //std::cout << "y: " << y << std::endl;
     for(int j=0;j<p;j++) {
         for(int i=0;i<m;i++) {
-	    std::cout << "i = " << i << ", j = " << j << std::endl;
-	    //std::cout << "arma::span(p-1-j,n-1-j)" << arma::span(p-1-j,n-1-j) << std:endl;
-	    std::cout << "x(arma::span(p-1-j,n-1-j),i)" << x(arma::span(p-1-j,n-1-j),i) << std::endl;
+	    //std::cout << "i = " << i << ", j = " << j << std::endl;
+	    ////std::cout << "arma::span(p-1-j,n-1-j)" << arma::span(p-1-j,n-1-j) << std:endl;
+	    //std::cout << "x(arma::span(p-1-j,n-1-j),i)" << x(arma::span(p-1-j,n-1-j),i) << std::endl;
             y.col(i+j*m) = x(arma::span(p-1-j,n-1-j),i);
         }
     }
-    std::cout << "y: " << std::endl;
-    std::cout << "END embed_mat" << std::endl;
+    //std::cout << "y: " << std::endl;
+    //std::cout << "END embed_mat" << std::endl;
     return y;
 } //matrix embed
 
@@ -105,31 +105,27 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                        arma::vec lambda_g, arma::vec lambda_i,
                        const double thresh,const double max_iter_delta,
                        const double max_iter_pi,const double max_iter_gamma) {
-    std::cout << "In specs_rcpp..." << std::endl;
-
-    std::cout << "Testing embed_mat..." << std::endl;
-    auto result = embed_mat(x, p);
-    std::cout << "result: " << result << std::endl;
+    //std::cout << "In specs_rcpp..." << std::endl;
     
-    std::cout << "Parameters:" << std::endl;
-    std::cout << "y: " << y << std::endl;
-    std::cout << "x: " << x << std::endl;
-    std::cout << "p: " << p << std::endl;
-    std::cout << "deterministics: " << deterministics << std::endl;
-    std::cout << "ADL: " << ADL << std::endl;
-    std::cout << "weights: " << weights << std::endl;
-    std::cout << "k_delta: " << k_delta << std::endl;
-    std::cout << "k_pi: " << k_pi << std::endl;
-    std::cout << "lambda_g: " << lambda_g << std::endl;
-    std::cout << "lambda_i: " << lambda_i << std::endl;
-    std::cout << "thresh: " << thresh << std::endl;
-    std::cout << "max_iter_delta: " << max_iter_delta << std::endl;
-    std::cout << "max_iter_pi: " << max_iter_pi << std::endl;
-    std::cout << "max_iter_gamma: " << max_iter_gamma << std::endl;
-    std::cout << "(end of parameters)" << std::endl;
+    //std::cout << "Parameters:" << std::endl;
+    //std::cout << "y: " << y << std::endl;
+    //std::cout << "x: " << x << std::endl;
+    //std::cout << "p: " << p << std::endl;
+    //std::cout << "deterministics: " << deterministics << std::endl;
+    //std::cout << "ADL: " << ADL << std::endl;
+    //std::cout << "weights: " << weights << std::endl;
+    //std::cout << "k_delta: " << k_delta << std::endl;
+    //std::cout << "k_pi: " << k_pi << std::endl;
+    //std::cout << "lambda_g: " << lambda_g << std::endl;
+    //std::cout << "lambda_i: " << lambda_i << std::endl;
+    //std::cout << "thresh: " << thresh << std::endl;
+    //std::cout << "max_iter_delta: " << max_iter_delta << std::endl;
+    //std::cout << "max_iter_pi: " << max_iter_pi << std::endl;
+    //std::cout << "max_iter_gamma: " << max_iter_gamma << std::endl;
+    //std::cout << "(end of parameters)" << std::endl;
 
     //Create CECM specification
-    std::cout << "CECM specification:" << std::endl;
+    //std::cout << "CECM specification:" << std::endl;
     arma::mat z = arma::join_horiz(y,x); //combined data
     arma::mat z_d = diff_mat(z); //differences
     arma::mat z_dl = embed_mat(z_d,p+1); //lagged differences
@@ -149,142 +145,142 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         v = arma::join_horiz(z_l,w); //combined lagged lvls and diffs
     }
     int n = z.n_cols; int m = v.n_cols; int t = y_d.n_elem;
-    std::cout << "v: " << v << std::endl;
-    std::cout << "n: " << n << std::endl;
-    std::cout << "m: " << m << std::endl;
-    std::cout << "t: " << t << std::endl;
-    std::cout << "(End of CECM specification.)" << std::endl;
+    //std::cout << "v: " << v << std::endl;
+    //std::cout << "n: " << n << std::endl;
+    //std::cout << "m: " << m << std::endl;
+    //std::cout << "t: " << t << std::endl;
+    //std::cout << "(End of CECM specification.)" << std::endl;
 
     //regress out deterministics
-    std::cout << "Regressing out deterministics" << std::endl;
+    //std::cout << "Regressing out deterministics" << std::endl;
     arma::vec y_d_old; arma::mat v_old, D, DDD;
     if (deterministics == "constant") {
-	std::cout << "We are in this case: constant" << std::endl;
+	//std::cout << "We are in this case: constant" << std::endl;
         arma::mat M = arma::eye(t,t) - arma::mat(t,t,arma::fill::ones)/t;
         y_d_old = y_d; v_old = v;
         y_d = M*y_d; v = M*v;
         D = join_horiz(arma::mat(t,1,arma::fill::ones),arma::mat(t,1,arma::fill::zeros));
-	std::cout << "M: " << M << std::endl;
-	std::cout << "y_d_old: " << y_d_old << std::endl;
-	std::cout << "y_d: " << y_d << std::endl;
-	std::cout << "D: " << D << std::endl;
+	//std::cout << "M: " << M << std::endl;
+	//std::cout << "y_d_old: " << y_d_old << std::endl;
+	//std::cout << "y_d: " << y_d << std::endl;
+	//std::cout << "D: " << D << std::endl;
     } else if (deterministics == "trend") {
-	std::cout << "We are in this case: trend" << std::endl;
+	//std::cout << "We are in this case: trend" << std::endl;
         D = arma::linspace(1,t,t);
         arma::mat M = arma::eye(t,t) - D*D.t()/arma::as_scalar(sum(pow(D,2)));
         y_d_old = y_d; v_old = v;
         y_d = M*y_d; v = M*v;
         D = join_horiz(arma::mat(t,1,arma::fill::zeros),D);
-	std::cout << "D: " << D << std::endl;
-	std::cout << "M: " << M << std::endl;
-	std::cout << "y_d_old: " << y_d_old << std::endl;
-	std::cout << "y_d: " << y_d << std::endl;
+	//std::cout << "D: " << D << std::endl;
+	//std::cout << "M: " << M << std::endl;
+	//std::cout << "y_d_old: " << y_d_old << std::endl;
+	//std::cout << "y_d: " << y_d << std::endl;
     } else if (deterministics == "both"){
-	std::cout << "We are in this case: both" << std::endl;
+	//std::cout << "We are in this case: both" << std::endl;
         D = join_horiz(arma::ones(t),arma::linspace(1,t,t));
         DDD = arma::inv_sympd(D.t() * D)*D.t();
         arma::mat M = arma::eye(t,t) - D*DDD;
         y_d_old = y_d; v_old = v;
         y_d = M*y_d; v = M*v;
-	std::cout << "D: " << D << std::endl;
-	std::cout << "DDD: " << DDD << std::endl;
-	std::cout << "M: " << M << std::endl;
-	std::cout << "y_d_old: " << y_d_old << std::endl;
-	std::cout << "v_old: " << v_old << std::endl;
-	std::cout << "y_d: " << y_d << std::endl;
-	std::cout << "v: " << v << std::endl;
+	//std::cout << "D: " << D << std::endl;
+	//std::cout << "DDD: " << DDD << std::endl;
+	//std::cout << "M: " << M << std::endl;
+	//std::cout << "y_d_old: " << y_d_old << std::endl;
+	//std::cout << "v_old: " << v_old << std::endl;
+	//std::cout << "y_d: " << y_d << std::endl;
+	//std::cout << "v: " << v << std::endl;
     } else {
-	std::cout << "We are in this case: else" << std::endl;
+	//std::cout << "We are in this case: else" << std::endl;
         D = arma::mat(t,2,arma::fill::zeros);
-	std::cout << "D: " << D << std::endl;
+	//std::cout << "D: " << D << std::endl;
     }
-    std::cout << "(Done regressing out deterministics.)" << std::endl;
+    //std::cout << "(Done regressing out deterministics.)" << std::endl;
 
     //Obtain crossproducts
-    std::cout << "Obtaining crossproducts" << std::endl;
+    //std::cout << "Obtaining crossproducts" << std::endl;
     arma::mat VV = v.t() * v; //crossproduct of V
     arma::vec vv = VV.diag(); //Diagonal elements of V'V
     arma::vec vy = v.t()*y_d/t; //Used for lambda seq and soft-thresholding
-    std::cout << "VV: " << VV << std::endl;
-    std::cout << "vv: " << vv << std::endl;
-    std::cout << "vy: " << vy << std::endl;
-    std::cout << "(Done obtaining crossproducts.)" << std::endl;
+    //std::cout << "VV: " << VV << std::endl;
+    //std::cout << "vv: " << vv << std::endl;
+    //std::cout << "vy: " << vy << std::endl;
+    //std::cout << "(Done obtaining crossproducts.)" << std::endl;
 
     //Obtain weights (if necessary)
-    std::cout << "Obtain weights (if necessary)" << std::endl;
+    //std::cout << "Obtain weights (if necessary)" << std::endl;
     arma::vec gamma0;
     if(weights(0)==-1){
-	std::cout << "In case 1" << std::endl;
+	//std::cout << "In case 1" << std::endl;
         gamma0 = arma::inv_sympd(VV) * v.t() * y_d; //OLS estimator
-	std::cout << "gamma0: " << gamma0 << std::endl;
+	//std::cout << "gamma0: " << gamma0 << std::endl;
         if(!ADL){
-	    std::cout << "In case 1.1" << std::endl; 
+	    //std::cout << "In case 1.1" << std::endl; 
             weights = join_cols(pow(abs(gamma0.rows(0,n-1)),-k_delta),pow(abs(gamma0.rows(n,m-1)),-k_pi));
         }else{
-	    std::cout << "In case 1.2" << std::endl;
+	    //std::cout << "In case 1.2" << std::endl;
             weights = pow(abs(gamma0),-k_pi);
         }
     }else if (weights(0) == -2) {
-	std::cout << "In case 2" << std::endl;
+	//std::cout << "In case 2" << std::endl;
         gamma0 = ridge(y_d,v,VV); //ridge estimator (change function later with svd check)
-        std::cout << "gamma0: " << gamma0 << std::endl;
+        //std::cout << "gamma0: " << gamma0 << std::endl;
         if(!ADL){
-	    std::cout << "In case 2.1" << std::endl;
+	    //std::cout << "In case 2.1" << std::endl;
             weights = join_cols(pow(abs(gamma0.rows(0,n-1)),-k_delta),pow(abs(gamma0.rows(n,m-1)),-k_pi));
         }else{
-	    std::cout << "In case 2.2" << std::endl;
+	    //std::cout << "In case 2.2" << std::endl;
             weights = pow(abs(gamma0),-k_pi);
         }
     }
-    std::cout << "weights: " << weights << std::endl;
-    std::cout << "(Done obtaining weights.)" << std::endl;
+    //std::cout << "weights: " << weights << std::endl;
+    //std::cout << "(Done obtaining weights.)" << std::endl;
 
     //Set group penalty
-    std::cout << "Setting group penalty" << std::endl;
+    //std::cout << "Setting group penalty" << std::endl;
     if (lambda_g(0) == -1){
-	std::cout << "In case 1" << std::endl;
+	//std::cout << "In case 1" << std::endl;
         double lambda_gmax = sqrt(as_scalar(sum(pow(vy.rows(0,n-1),2)))); //maximum group penalty
         double lambda_gmin = 1e-4*lambda_gmax; //minimum group penalty
-        std::cout << "lambda_gmax: " << lambda_gmax << std::endl;
-	std::cout << "lambda_gmin: " << lambda_gmin << std::endl;
+        //std::cout << "lambda_gmax: " << lambda_gmax << std::endl;
+	//std::cout << "lambda_gmin: " << lambda_gmin << std::endl;
         lambda_g = arma::zeros(10); //initialize group penalties
         lambda_g.rows(0,8) = exp(arma::linspace(log(lambda_gmax),log(lambda_gmin),9)); //fill group penalties
     }
-    std::cout << "lambda_g: " << lambda_g << std::endl;
-    std::cout << "(Done setting group penalty.)" << std::endl;
+    //std::cout << "lambda_g: " << lambda_g << std::endl;
+    //std::cout << "(Done setting group penalty.)" << std::endl;
 
     //Set individual penalty
-    std::cout << "Setting individual penalty" << std::endl;
+    //std::cout << "Setting individual penalty" << std::endl;
     if(lambda_i(0) == -1) {
-	std::cout << "In case 1" << std::endl;
+	//std::cout << "In case 1" << std::endl;
         double lambda_imax = arma::as_scalar(max(abs(vy%pow(weights,-1)))); //maximum individual penalty
         double lambda_imin = 1e-4*lambda_imax; //minimum individual penalty
-	std::cout << "lambda_imax: " << lambda_imax << std::endl;
-	std::cout << "lambda_imin: " << lambda_imin << std::endl;
+	//std::cout << "lambda_imax: " << lambda_imax << std::endl;
+	//std::cout << "lambda_imin: " << lambda_imin << std::endl;
         lambda_i = exp(arma::linspace(log(lambda_imax),log(lambda_imin),100)); //individual penalties
     }
     int n_i = lambda_i.n_elem; int n_g = lambda_g.n_elem;
-    std::cout << "lambda_i: " << lambda_i << std::endl;
-    std::cout << "n_i: " << n_i << std::endl;
-    std::cout << "n_g: " << n_g << std::endl;
-    std::cout << "(Done setting individual penalty)" << std::endl;
+    //std::cout << "lambda_i: " << lambda_i << std::endl;
+    //std::cout << "n_i: " << n_i << std::endl;
+    //std::cout << "n_g: " << n_g << std::endl;
+    //std::cout << "(Done setting individual penalty)" << std::endl;
 
     //Perform SGL algorithm
-    std::cout << "Performing SGL algorithm" << std::endl;
+    //std::cout << "Performing SGL algorithm" << std::endl;
     arma::vec gamma = arma::zeros(m);//initial
     arma::vec gamma_old;//coefficients vectors
     arma::vec theta, theta_dif, delta_u, xr_st; //initialize vectors for delta updates
     if((any(lambda_g)>0) && !ADL){
-	std::cout << "In case 1" << std::endl;
+	//std::cout << "In case 1" << std::endl;
         theta = theta_dif = delta_u = xr_st = arma::zeros(n);
     }
     arma::mat gammas(m,n_i*n_g,arma::fill::zeros); //coefficient matrix
     arma::vec weights_vv = weights % pow(vv,-1);//weights divided by vv
     arma::mat v_vv = v*diagmat(pow(vv,-1));//columns of v divided by vv (standardized)
-    std::cout << "(Done performing SGL algorithm)" << std::endl;
+    //std::cout << "(Done performing SGL algorithm)" << std::endl;
 
     //Double loop over penalties
-    std::cout << "Double loop over penalties" << std::endl;
+    //std::cout << "Double loop over penalties" << std::endl;
     for(int g = 0;g<n_g;g++) {
         double lambda_gtmp = lambda_g(g);
         if(lambda_gtmp > 0) {
@@ -429,10 +425,10 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         }
         gamma = arma::zeros(m); //reset gamma for new group penalty
     } //closes loop over group penalties
-    std::cout << "(Done loop over penalties)" << std::endl;
+    //std::cout << "(Done loop over penalties)" << std::endl;
 
     //Calculate deterministic coefficients
-    std::cout << "Calculate deterministic coefficients" << std::endl;
+    //std::cout << "Calculate deterministic coefficients" << std::endl;
     arma::mat det(2,n_g*n_i,arma::fill::zeros); int nn = n_g*n_i;
     if (deterministics == "constant") {
         for(int i=0;i<nn;i++) {
@@ -450,10 +446,10 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
             det.col(i) = DDD*(y_d_old - v_old*gammas.col(i));
         }
     }
-    std::cout << "(Done calculate deterministic coefficients)" << std::endl;
+    //std::cout << "(Done calculate deterministic coefficients)" << std::endl;
 
     //Collect output in list
-    std::cout << "Collect output in list" << std::endl;
+    //std::cout << "Collect output in list" << std::endl;
     Rcpp::List ret ;
     ret["gammas"] = gammas;
     ret["thetas"] = det;
@@ -468,7 +464,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         ret["v"] = v; ret["Mv"] = v_old;
     }
     ret["D"] = D;
-    std::cout << "(Collected output in list)" << std::endl;
+    //std::cout << "(Collected output in list)" << std::endl;
 
     return ret;
 }
