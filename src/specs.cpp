@@ -491,7 +491,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         std::cout << "ret[My_d]: " << My_d << std::endl;
         std::cout << "ret[v]: " << v << std::endl;
         std::cout << "ret[Mv]: " << v << std::endl;
-    else {
+    } else {
         std::cout << "ret[y_d]: " << y_d << std::endl;
         std::cout << "ret[My_d]: " << y_d_old << std::endl;
         std::cout << "ret[v]: " << v << std::endl;
