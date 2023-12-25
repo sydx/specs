@@ -199,14 +199,14 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "(Done regressing out deterministics.)" << std::endl;
 
     //Obtain crossproducts
-    //std::cout << "Obtaining crossproducts" << std::endl;
+    std::cout << "Obtaining crossproducts" << std::endl;
     arma::mat VV = v.t() * v; //crossproduct of V
     arma::vec vv = VV.diag(); //Diagonal elements of V'V
     arma::vec vy = v.t()*y_d/t; //Used for lambda seq and soft-thresholding
-    //std::cout << "VV: " << VV << std::endl;
-    //std::cout << "vv: " << vv << std::endl;
-    //std::cout << "vy: " << vy << std::endl;
-    //std::cout << "(Done obtaining crossproducts.)" << std::endl;
+    std::cout << "VV: " << VV << std::endl;
+    std::cout << "vv: " << vv << std::endl;
+    std::cout << "vy: " << vy << std::endl;
+    std::cout << "(Done obtaining crossproducts.)" << std::endl;
 
     //Obtain weights (if necessary)
     //std::cout << "Obtain weights (if necessary)" << std::endl;
