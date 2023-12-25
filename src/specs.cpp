@@ -450,7 +450,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "(Done loop over penalties)" << std::endl;
 
     //Calculate deterministic coefficients
-    std::cout << "Calculate deterministic coefficients" << std::endl;
+    // std::cout << "Calculate deterministic coefficients" << std::endl;
     arma::mat det(2,n_g*n_i,arma::fill::zeros); int nn = n_g*n_i;
     if (deterministics == "constant") {
         for(int i=0;i<nn;i++) {
@@ -468,10 +468,10 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
             det.col(i) = DDD*(y_d_old - v_old*gammas.col(i));
         }
     }
-    std::cout << "(Done calculating deterministic coefficients)" << std::endl;
+    // std::cout << "(Done calculating deterministic coefficients)" << std::endl;
 
     //Collect output in list
-    std::cout << "Collect output in list" << std::endl;
+    //std::cout << "Collect output in list" << std::endl;
     Rcpp::List ret ;
     ret["gammas"] = gammas;
     ret["thetas"] = det;
@@ -486,25 +486,25 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         ret["v"] = v; ret["Mv"] = v_old;
     }
     ret["D"] = D;
-    std::cout << "(Collected output in list)" << std::endl;
+    //std::cout << "(Collected output in list)" << std::endl;
 
-    std::cout << "ret[gammas]: " << gammas << std::endl;
-    std::cout << "ret[thetas]: " << det << std::endl;
-    std::cout << "ret[lambda_i]: " << lambda_i << std::endl;
-    std::cout << "ret[lambda_g]: " << lambda_g << std::endl;
-    std::cout << "ret[weights]: " << weights << std::endl;
+    //std::cout << "ret[gammas]: " << gammas << std::endl;
+    //std::cout << "ret[thetas]: " << det << std::endl;
+    //std::cout << "ret[lambda_i]: " << lambda_i << std::endl;
+    //std::cout << "ret[lambda_g]: " << lambda_g << std::endl;
+    //std::cout << "ret[weights]: " << weights << std::endl;
     if (deterministics == "none") {
-        std::cout << "ret[y_d]: " << y_d << std::endl;
-        std::cout << "ret[My_d]: " << y_d << std::endl;
-        std::cout << "ret[v]: " << v << std::endl;
-        std::cout << "ret[Mv]: " << v << std::endl;
+        //std::cout << "ret[y_d]: " << y_d << std::endl;
+        //std::cout << "ret[My_d]: " << y_d << std::endl;
+        //std::cout << "ret[v]: " << v << std::endl;
+        //std::cout << "ret[Mv]: " << v << std::endl;
     } else {
-        std::cout << "ret[y_d]: " << y_d << std::endl;
-        std::cout << "ret[My_d]: " << y_d_old << std::endl;
-        std::cout << "ret[v]: " << v << std::endl;
-        std::cout << "ret[Mv]: " << v_old << std::endl;
+        //std::cout << "ret[y_d]: " << y_d << std::endl;
+        //std::cout << "ret[My_d]: " << y_d_old << std::endl;
+        //std::cout << "ret[v]: " << v << std::endl;
+        //std::cout << "ret[Mv]: " << v_old << std::endl;
     }
-    std::cout << "ret[D]: " << D << std::endl;
+    //std::cout << "ret[D]: " << D << std::endl;
 
     return ret;
 }
