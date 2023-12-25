@@ -258,6 +258,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
 	std::cout << "In case 1" << std::endl;
         std::cout << "weights: " << weights << std::endl;
 	std::cout << "pow(weights,-1): " << pow(weights,-1) << std::endl;
+	std::cout << "vy: " << vy << std::endl;
         std::cout << "vy%pow(weights,-1): " << vy%pow(weights,-1) << std::endl;
         std::cout << "abs(vy%pow(weights,-1)): " << abs(vy%pow(weights,-1)) << std::endl;
         std::cout << "max(abs(vy%pow(weights,-1))): " << max(abs(vy%pow(weights,-1))) << std::endl;
