@@ -416,7 +416,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                 std::cout << "Inner loop, i: " << i << ", lambda_itmp: " << lambda_itmp << std::endl;
 
 		// TODO !!!!! Added
-		if (i > 3) break;
+		// if (i > 3) break;
 
                 double dist = thresh+1;
                 int count = 0;
@@ -456,7 +456,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         gamma = arma::zeros(m); //reset gamma for new group penalty
 
         // !!!!!!! TODO Added:
-        break;
+        // break;
     } //closes loop over group penalties
     std::cout << "(Done loop over penalties)" << std::endl;
 
