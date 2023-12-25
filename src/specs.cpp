@@ -282,11 +282,17 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     if((any(lambda_g)>0) && !ADL){
 	//std::cout << "In case 1" << std::endl;
         theta = theta_dif = delta_u = xr_st = arma::zeros(n);
+        std::cout << "theta: " << theta << std::endl;
+        std::cout << "theta_dif: " << theta_dif << std::endl;
+        std::cout << "delta_u: " << delta_u << std::endl;
+        std::cout << "xr_st: " << xr_st << std::endl;
     }
     arma::mat gammas(m,n_i*n_g,arma::fill::zeros); //coefficient matrix
     arma::vec weights_vv = weights % pow(vv,-1);//weights divided by vv
     arma::mat v_vv = v*diagmat(pow(vv,-1));//columns of v divided by vv (standardized)
-    //std::cout << "(Done performing SGL algorithm)" << std::endl;
+    std::cout << "weights_vv: " << weights_vv << std::endl;
+    std::cout << "v_vv: " << v_vv << std::endl;
+    std::cout << "(Done performing SGL algorithm)" << std::endl;
 
     //Double loop over penalties
     //std::cout << "Double loop over penalties" << std::endl;
