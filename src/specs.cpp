@@ -444,7 +444,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         gamma = arma::zeros(m); //reset gamma for new group penalty
 
         // !!!!!!! TODO Added:
-        break
+        break;
     } //closes loop over group penalties
     std::cout << "(Done loop over penalties)" << std::endl;
 
