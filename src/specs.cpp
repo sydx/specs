@@ -306,6 +306,9 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                 arma::vec lambda_itmp = lambda_i(i)*weights; //Create weighted individual penalties
                 std::cout << "Inner loop, i: " << i << ", lambda_itmp: " << lambda_itmp << std::endl;
 
+		// TODO !!!!! Added
+		if (i > 3) break;
+
                 //Iterate over gamma for fixed lambda pair
                 double dist_gamma = thresh+1;
                 int count_gamma = 0;
