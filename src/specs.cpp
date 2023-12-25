@@ -295,10 +295,12 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "(Done performing SGL algorithm)" << std::endl;
 
     //Double loop over penalties
-    //std::cout << "Double loop over penalties" << std::endl;
+    std::cout << "Double loop over penalties" << std::endl;
     for(int g = 0;g<n_g;g++) {
         double lambda_gtmp = lambda_g(g);
+        std::cout << "Outer loop, g: " << g << ", lambda_gtmp: " << lambda_gtmp << std::endl;
         if(lambda_gtmp > 0) {
+            std::cout << "ldmbda_gtmp > 0" << std::endl;
             double l2; //initialize l2 norm
             for(int i=0;i<n_i;i++) {
                 arma::vec lambda_itmp = lambda_i(i)*weights; //Create weighted individual penalties
@@ -320,6 +322,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                     arma::vec xr = z_l.t()*r_delta/t;
                     for(int j=0;j<n;j++) {
                         xr_st(j) = st(xr(j),lambda_itmp(j));//Get soft-thresholded xr for delta group
+                        std::cout <<"!!! xr_st[" << j << "]: " << xr_st(j) << std::endl;
                     }
 
                     //Loop for delta
@@ -439,11 +442,14 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
             }
         }
         gamma = arma::zeros(m); //reset gamma for new group penalty
+
+        // !!!!!!! TODO Added:
+        break
     } //closes loop over group penalties
-    //std::cout << "(Done loop over penalties)" << std::endl;
+    std::cout << "(Done loop over penalties)" << std::endl;
 
     //Calculate deterministic coefficients
-    //std::cout << "Calculate deterministic coefficients" << std::endl;
+    std::cout << "Calculate deterministic coefficients" << std::endl;
     arma::mat det(2,n_g*n_i,arma::fill::zeros); int nn = n_g*n_i;
     if (deterministics == "constant") {
         for(int i=0;i<nn;i++) {
@@ -461,7 +467,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
             det.col(i) = DDD*(y_d_old - v_old*gammas.col(i));
         }
     }
-    //std::cout << "(Done calculate deterministic coefficients)" << std::endl;
+    std::cout << "(Done calculating deterministic coefficients)" << std::endl;
 
     //Collect output in list
     std::cout << "Collect output in list" << std::endl;
