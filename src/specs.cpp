@@ -239,34 +239,34 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "(Done obtaining weights.)" << std::endl;
 
     //Set group penalty
-    //std::cout << "Setting group penalty" << std::endl;
+    std::cout << "Setting group penalty" << std::endl;
     if (lambda_g(0) == -1){
-	//std::cout << "In case 1" << std::endl;
+	std::cout << "In case 1" << std::endl;
         double lambda_gmax = sqrt(as_scalar(sum(pow(vy.rows(0,n-1),2)))); //maximum group penalty
         double lambda_gmin = 1e-4*lambda_gmax; //minimum group penalty
-        //std::cout << "lambda_gmax: " << lambda_gmax << std::endl;
-	//std::cout << "lambda_gmin: " << lambda_gmin << std::endl;
+        std::cout << "lambda_gmax: " << lambda_gmax << std::endl;
+	std::cout << "lambda_gmin: " << lambda_gmin << std::endl;
         lambda_g = arma::zeros(10); //initialize group penalties
         lambda_g.rows(0,8) = exp(arma::linspace(log(lambda_gmax),log(lambda_gmin),9)); //fill group penalties
     }
-    //std::cout << "lambda_g: " << lambda_g << std::endl;
-    //std::cout << "(Done setting group penalty.)" << std::endl;
+    std::cout << "lambda_g: " << lambda_g << std::endl;
+    std::cout << "(Done setting group penalty.)" << std::endl;
 
     //Set individual penalty
-    //std::cout << "Setting individual penalty" << std::endl;
+    std::cout << "Setting individual penalty" << std::endl;
     if(lambda_i(0) == -1) {
-	//std::cout << "In case 1" << std::endl;
+	std::cout << "In case 1" << std::endl;
         double lambda_imax = arma::as_scalar(max(abs(vy%pow(weights,-1)))); //maximum individual penalty
         double lambda_imin = 1e-4*lambda_imax; //minimum individual penalty
-	//std::cout << "lambda_imax: " << lambda_imax << std::endl;
-	//std::cout << "lambda_imin: " << lambda_imin << std::endl;
+	std::cout << "lambda_imax: " << lambda_imax << std::endl;
+	std::cout << "lambda_imin: " << lambda_imin << std::endl;
         lambda_i = exp(arma::linspace(log(lambda_imax),log(lambda_imin),100)); //individual penalties
     }
     int n_i = lambda_i.n_elem; int n_g = lambda_g.n_elem;
-    //std::cout << "lambda_i: " << lambda_i << std::endl;
-    //std::cout << "n_i: " << n_i << std::endl;
-    //std::cout << "n_g: " << n_g << std::endl;
-    //std::cout << "(Done setting individual penalty)" << std::endl;
+    std::cout << "lambda_i: " << lambda_i << std::endl;
+    std::cout << "n_i: " << n_i << std::endl;
+    std::cout << "n_g: " << n_g << std::endl;
+    std::cout << "(Done setting individual penalty)" << std::endl;
 
     //Perform SGL algorithm
     //std::cout << "Performing SGL algorithm" << std::endl;
