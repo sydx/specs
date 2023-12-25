@@ -107,13 +107,13 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                        const double max_iter_pi,const double max_iter_gamma) {
     //std::cout << "In specs_rcpp..." << std::endl;
     
-    //std::cout << "Parameters:" << std::endl;
+    std::cout << "Parameters:" << std::endl;
     //std::cout << "y: " << y << std::endl;
     //std::cout << "x: " << x << std::endl;
     //std::cout << "p: " << p << std::endl;
     //std::cout << "deterministics: " << deterministics << std::endl;
     //std::cout << "ADL: " << ADL << std::endl;
-    //std::cout << "weights: " << weights << std::endl;
+    std::cout << "weights: " << weights << std::endl;
     //std::cout << "k_delta: " << k_delta << std::endl;
     //std::cout << "k_pi: " << k_pi << std::endl;
     //std::cout << "lambda_g: " << lambda_g << std::endl;
@@ -209,7 +209,8 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "(Done obtaining crossproducts.)" << std::endl;
 
     //Obtain weights (if necessary)
-    //std::cout << "Obtain weights (if necessary)" << std::endl;
+    std::cout << "Obtain weights (if necessary)" << std::endl;
+    std::cout << "weights before: " << weights << std::endl;
     arma::vec gamma0;
     if(weights(0)==-1){
 	std::cout << "In case 1" << std::endl;
