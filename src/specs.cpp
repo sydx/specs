@@ -212,30 +212,30 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     //std::cout << "Obtain weights (if necessary)" << std::endl;
     arma::vec gamma0;
     if(weights(0)==-1){
-	//std::cout << "In case 1" << std::endl;
+	std::cout << "In case 1" << std::endl;
         gamma0 = arma::inv_sympd(VV) * v.t() * y_d; //OLS estimator
-	//std::cout << "gamma0: " << gamma0 << std::endl;
+	std::cout << "gamma0: " << gamma0 << std::endl;
         if(!ADL){
-	    //std::cout << "In case 1.1" << std::endl; 
+	    std::cout << "In case 1.1" << std::endl; 
             weights = join_cols(pow(abs(gamma0.rows(0,n-1)),-k_delta),pow(abs(gamma0.rows(n,m-1)),-k_pi));
         }else{
-	    //std::cout << "In case 1.2" << std::endl;
+	    std::cout << "In case 1.2" << std::endl;
             weights = pow(abs(gamma0),-k_pi);
         }
     }else if (weights(0) == -2) {
-	//std::cout << "In case 2" << std::endl;
+	std::cout << "In case 2" << std::endl;
         gamma0 = ridge(y_d,v,VV); //ridge estimator (change function later with svd check)
-        //std::cout << "gamma0: " << gamma0 << std::endl;
+        std::cout << "gamma0: " << gamma0 << std::endl;
         if(!ADL){
-	    //std::cout << "In case 2.1" << std::endl;
+	    std::cout << "In case 2.1" << std::endl;
             weights = join_cols(pow(abs(gamma0.rows(0,n-1)),-k_delta),pow(abs(gamma0.rows(n,m-1)),-k_pi));
         }else{
-	    //std::cout << "In case 2.2" << std::endl;
+	    std::cout << "In case 2.2" << std::endl;
             weights = pow(abs(gamma0),-k_pi);
         }
     }
-    //std::cout << "weights: " << weights << std::endl;
-    //std::cout << "(Done obtaining weights.)" << std::endl;
+    std::cout << "weights: " << weights << std::endl;
+    std::cout << "(Done obtaining weights.)" << std::endl;
 
     //Set group penalty
     //std::cout << "Setting group penalty" << std::endl;
