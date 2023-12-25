@@ -398,6 +398,9 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                     } else {
                         dist_gamma = sqrt(sum(pow(gamma(ind),2)));
                     }
+
+                    // !!!!!!! TODO: Added
+                    break;
                 } //closes while loop for gamma
 
                 gammas.col(i+g*n_i) = gamma; //Store new gamma in gammas
