@@ -140,16 +140,18 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "z_l: " << z_l << std::endl;
     std::cout << "w: " << w << std::endl;
     if(ADL) {
+        std::cout << "ADL" << std::endl;
         v = w; //consider diffs only
-    }else {
+    } else {
+        std::cout << "No ADL" << std::endl;
         v = arma::join_horiz(z_l,w); //combined lagged lvls and diffs
     }
     int n = z.n_cols; int m = v.n_cols; int t = y_d.n_elem;
-    //std::cout << "v: " << v << std::endl;
-    //std::cout << "n: " << n << std::endl;
-    //std::cout << "m: " << m << std::endl;
-    //std::cout << "t: " << t << std::endl;
-    //std::cout << "(End of CECM specification.)" << std::endl;
+    std::cout << "v: " << v << std::endl;
+    std::cout << "n: " << n << std::endl;
+    std::cout << "m: " << m << std::endl;
+    std::cout << "t: " << t << std::endl;
+    std::cout << "(End of CECM specification.)" << std::endl;
 
     //regress out deterministics
     //std::cout << "Regressing out deterministics" << std::endl;
