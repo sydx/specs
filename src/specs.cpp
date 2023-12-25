@@ -307,7 +307,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                 std::cout << "Inner loop, i: " << i << ", lambda_itmp: " << lambda_itmp << std::endl;
 
 		// TODO !!!!! Added
-		if (i > 3) break;
+		// if (i > 3) break;
 
                 //Iterate over gamma for fixed lambda pair
                 double dist_gamma = thresh+1;
