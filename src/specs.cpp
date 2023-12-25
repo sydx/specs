@@ -410,9 +410,16 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
             } //closes loop over individual penalties
         } else {
             //Full coordinate descent
+            std::cout << "*** Full coordinate descent ***" << std::endl;
             arma::vec r = y_d; arma::vec r_j;
             for(int i=0;i<n_i;i++) {
                 arma::vec lambda_itmp = t*lambda_i(i)*weights_vv; //no more need to calculate lambda*weight/vv (see above)
+
+                std::cout << "Inner loop, i: " << i << ", lambda_itmp: " << lambda_itmp << std::endl;
+
+		// TODO !!!!! Added
+		if (i > 3) break;
+
                 double dist = thresh+1;
                 int count = 0;
                 while(dist>thresh) {
