@@ -256,6 +256,10 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     std::cout << "Setting individual penalty" << std::endl;
     if(lambda_i(0) == -1) {
 	std::cout << "In case 1" << std::endl;
+	std::cout << "pow(weights,-1): " << pow(weights,-1) << std::endl;
+        std::cout << "vy%pow(weights,-1): " << vy%pow(weights,-1) << std::endl;
+        std::cout << "abs(vy%pow(weights,-1)): " << abs(vy%pow(weights,-1)) << std::endl;
+        std::cout << "max(abs(vy%pow(weights,-1))): " << max(abs(vy%pow(weights,-1))) << std::endl;
         double lambda_imax = arma::as_scalar(max(abs(vy%pow(weights,-1)))); //maximum individual penalty
         double lambda_imin = 1e-4*lambda_imax; //minimum individual penalty
 	std::cout << "lambda_imax: " << lambda_imax << std::endl;
