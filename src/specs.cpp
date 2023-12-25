@@ -481,7 +481,16 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     ret["D"] = D;
     std::cout << "(Collected output in list)" << std::endl;
 
-    std::cout << ret << std::endl;
+    std::cout << "ret[gammas]: " << ret["gammas"] << std::endl;
+    std::cout << "ret[thetas]: " << ret["thetas"] << std::endl;
+    std::cout << "ret[lambda_i]: " << ret["lambda_i"] << std::endl;
+    std::cout << "ret[lambda_g]: " << ret["lambda_g"] << std::endl;
+    std::cout << "ret[weights]: " << ret["weights"] << std::endl;
+    std::cout << "ret[y_d]: " << ret["y_d"] << std::endl;
+    std::cout << "ret[My_d]: " << ret["My_d"] << std::endl;
+    std::cout << "ret[v]: " << ret["v"] << std::endl;
+    std::cout << "ret[Mv]: " << ret["Mv"] << std::endl;
+    std::cout << "ret[D]: " << ret["D"] << std::endl;
 
     return ret;
 }
