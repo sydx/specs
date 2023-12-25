@@ -464,7 +464,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
     //std::cout << "(Done calculate deterministic coefficients)" << std::endl;
 
     //Collect output in list
-    //std::cout << "Collect output in list" << std::endl;
+    std::cout << "Collect output in list" << std::endl;
     Rcpp::List ret ;
     ret["gammas"] = gammas;
     ret["thetas"] = det;
@@ -479,7 +479,9 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
         ret["v"] = v; ret["Mv"] = v_old;
     }
     ret["D"] = D;
-    //std::cout << "(Collected output in list)" << std::endl;
+    std::cout << "(Collected output in list)" << std::endl;
+
+    std::cout << ret << std::endl;
 
     return ret;
 }
