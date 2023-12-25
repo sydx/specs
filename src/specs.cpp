@@ -407,6 +407,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
                 } //closes while loop for gamma
 
                 gammas.col(i+g*n_i) = gamma; //Store new gamma in gammas
+                std::cout << "NEW GAMMA: " << gamma << std::endl; 
             } //closes loop over individual penalties
         } else {
             //Full coordinate descent
