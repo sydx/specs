@@ -304,6 +304,7 @@ Rcpp::List specs_rcpp (const arma::vec y,const arma::mat x,const int p,
             double l2; //initialize l2 norm
             for(int i=0;i<n_i;i++) {
                 arma::vec lambda_itmp = lambda_i(i)*weights; //Create weighted individual penalties
+                std::cout << "Inner loop, i: " << i << ", lambda_itmp: " << lambda_itmp << std::endl;
 
                 //Iterate over gamma for fixed lambda pair
                 double dist_gamma = thresh+1;
